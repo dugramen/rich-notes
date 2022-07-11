@@ -1,0 +1,67 @@
+
+.note-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.note-item {
+    --radius: 20px;
+    --dark-color: rgb(234, 116, 116);
+    --light-color: rgb(255, 160, 160);
+}
+
+.note-item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: stretch;
+    margin: 8px;
+    border-radius: var(--radius);
+    
+    color: black;
+    background-color: transparent;
+    transition: .5s;
+}
+
+.note-item > * {
+    padding: 0px 12px;
+}
+
+.note-item:hover {
+    background-color: var(--light-color);
+}
+
+.note-item.selected {
+    background-color: var(--dark-color);
+}
+
+.note-item > :first-child {
+    
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    flex-shrink: 1;
+}
+
+.note-item button {
+    flex-grow: 1;
+    flex-shrink: 0;
+    border: none;
+    /* height: 100%; */
+    background-color: transparent;
+    color: white;
+
+    display: none;
+}
+
+.note-item:hover button {
+    display: block;
+}
+
+.note-item button:hover {
+    border-radius: var(--radius);
+    background-color: hsla(0, 100%, 100%, .15);
+}
