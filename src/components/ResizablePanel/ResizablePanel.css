@@ -3,12 +3,21 @@
     max-width: 100%;
     display: flex;
     flex-direction: row;
+    /* justify-content: stretch; */
+    background-color: beige;
+}
+
+.resizable-panel:last-child {
+    width: 100%;
 }
 
 .divider {
     flex: 0;
     min-width: 16px;
     min-height: 100%;
-    background-color: red;
     cursor: w-resize;
+}
+
+.divider:hover {
+    background-color: gray;
 }

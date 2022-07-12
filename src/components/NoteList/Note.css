@@ -39,15 +39,16 @@
 }
 
 .note-item > :first-child {
-    
+    flex-grow: 1;
     overflow: hidden;
     text-overflow: clip;
     white-space: nowrap;
     flex-shrink: 1;
+    text-align: left;
 }
 
 .note-item button {
-    flex-grow: 1;
+    flex-grow: 0;
     flex-shrink: 0;
     border: none;
     /* height: 100%; */

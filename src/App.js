@@ -1,9 +1,10 @@
-import logo from './logo.svg';
+import ReactDOM from 'react-dom';
 import './App.css';
 import NoteList from './components/NoteList/NoteList';
 import Writer from './components/Writer/Writer';
 import Header from './components/Header/Header';
 import ResizablePanel from './components/ResizablePanel/ResizablePanel.js';
+import SplitPane from 'react-split-pane';
 
 function App() {
   console.log(<div>
@@ -21,4 +22,5 @@ function App() {
   );
 }
 
+// ReactDOM.render(<App/>, document.getElementById("root"))
 export default App;

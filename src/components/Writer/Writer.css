@@ -1,0 +1,16 @@
+div.DraftEditor-root {
+    padding: 14px;
+    border: 2px black solid;
+    resize: both;
+    overflow: auto;
+}
+
+div.DraftEditor-editorContainer,
+div.public-DraftEditor-content {
+  height: 100%;
+}
+
+.tool-container button {
+    border-radius: 20px;
+    background-color: aqua;
+}

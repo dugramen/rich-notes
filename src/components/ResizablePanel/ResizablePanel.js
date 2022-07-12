@@ -32,7 +32,7 @@ export default function ResizablePanel({children}) {
     for (let i = 0; i < children.length ; i++) {
         childrenWithBreaks.push(<div
             ref={refWidths.current[i]}
-            style={{width: `${widths[i]}px`}}
+            style={{minWidth: `${widths[i]}px`}}
             >
                 {children[i]}
         </div>)
@@ -51,6 +51,7 @@ export default function ResizablePanel({children}) {
     
     function resize(event, i) {
         if (isPressed.current) {
+            event.stopPropagation()
             setWidths(oldWidths => oldWidths.map((w, _i) => _i === i? w + event.movementX: w))
         }
     }
