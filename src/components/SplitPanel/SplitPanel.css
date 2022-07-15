@@ -1,0 +1,22 @@
+.divider {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    transition: .3s;
+}
+
+.divide:hover {
+    background-color: gray;
+}
+
+.line {
+    height: 20%;
+    width: 2px;
+    background-color: transparent;
+}
+
+.divider:hover .line {
+    background-color: gray;
+}

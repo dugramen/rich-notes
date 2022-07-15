@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 8px;
     width: 100%;
+    min-width: 100%;
 }
 
 .note-item {
@@ -17,9 +18,11 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    justify-content: stretch;
+    justify-content: space-between;
     margin: 8px;
     border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
     
     color: black;
     background-color: transparent;
@@ -39,30 +42,44 @@
 }
 
 .note-item > :first-child {
-    flex-grow: 1;
+    flex-grow: 0;
+    flex-shrink: 1;
     overflow: hidden;
     text-overflow: clip;
     white-space: nowrap;
-    flex-shrink: 1;
     text-align: left;
 }
 
 .note-item button {
+    /* position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0; */
+
     flex-grow: 0;
     flex-shrink: 0;
     border: none;
     /* height: 100%; */
-    background-color: transparent;
+    background-color: var(--dark-color);
+    background-color: hsla(0, 100%, 100%, .25);
     color: white;
+    cursor: pointer;
+    border-radius: var(--radius);
 
-    display: none;
+    /* display: none; */
+    transition: .3s;
+    transform: translateX(100%);
+    color: transparent;
+    margin-left: -100%;
 }
 
 .note-item:hover button {
-    display: block;
+    /* display: block; */
+    transform: translateX(0px);
+    color: white;
+    margin-left: 0%;
 }
 
 .note-item button:hover {
-    border-radius: var(--radius);
-    background-color: hsla(0, 100%, 100%, .15);
+    transform: scale(1.2, 1.2);
 }

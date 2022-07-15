@@ -1,26 +1,42 @@
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+import React from 'react';
 import './App.css';
 import NoteList from './components/NoteList/NoteList';
 import Writer from './components/Writer/Writer';
 import Header from './components/Header/Header';
-import ResizablePanel from './components/ResizablePanel/ResizablePanel.js';
-import SplitPane from 'react-split-pane';
+// import ResizablePanel from './components/ResizablePanel/ResizablePanel.js';
+import SplitPanel from './components/SplitPanel/SplitPanel';
+import { Editor, EditorState, RichUtils } from "draft-js";
+
 
 function App() {
-  console.log(<div>
-    Title <em>Emphasised</em> end
-  </div>);
+  const [notes, setNotes] = React.useState(["hello"])
+  const [currentNote, setCurrentNote] = React.useState(0)
+  
+  function updateNote(id, newNote) {
+    setNotes(oldNotes => [
+      newNote,
+      ...oldNotes.filter((note, _id) => id !== _id)
+    ])
+    setCurrentNote(0)
+  }
 
   return (
-    <div className="App">
-      <Header/>
-      <ResizablePanel className='App-body'>
-        <NoteList/>
-        <Writer/>
-      </ResizablePanel>
-    </div>
+    // <TextContext.Provider value={TextContext}>
+      <div className="App">
+        <Header/>
+        <SplitPanel className='App-body'>
+          <NoteList 
+            notes={notes} 
+            currentNote={currentNote}
+            setNotes={setNotes}
+            setCurrentNote={setCurrentNote}
+          />
+          <Writer text={notes[currentNote]} updateNote={updateNote.bind(this, currentNote)}/>
+        </SplitPanel>
+      </div>
+    // </TextContext.Provider>
   );
 }
 
-// ReactDOM.render(<App/>, document.getElementById("root"))
 export default App;

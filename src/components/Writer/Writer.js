@@ -9,7 +9,7 @@ export default function Writer(props) {
 
     const tools = [
         ['ParagraphStyle', 'Font', 'FontSize'],
-        ['Itallic', 'BOLD', 'Underline', 'Strikethrough'],
+        ['Italic', 'Bold', 'Underline', 'Strikethrough'],
         ['TextColor', 'HighlightColor'],
         ['UnorderedList', 'OrderedList'],
         ['TextLeft', 'TextCenter', 'TextRight', 'TextBlock'],
@@ -17,30 +17,30 @@ export default function Writer(props) {
     ]
     const toolButtons = tools.map(section => section.map(tool => <button 
         key = {tool} 
+        id = {tool.toLowerCase()}
         onClick={(event) => handleClick(event, tool)}
-        // onClick={() => document.execCommand(tool)}
         >
         {tool}
     </button>))
 
     function handleClick(event, tool) {
-        console.log(tool)
         event.preventDefault()
+        console.log(tool)
         const nextState = RichUtils.toggleInlineStyle(editorState, tool.toUpperCase());
         setEditorState(nextState)
     }
 
 
-    return (<div>
+    return (<div className="writer">
         <div className="tool-container">
             {toolButtons}
         </div>
-        {/* <textarea>Hello there ending words</textarea> */}
-        <Editor 
+        <textarea value={props.text} onChange={e => props.updateNote(e.target.value)}></textarea>
+        {/* <Editor 
             className="draftjs"
             editorState={editorState} 
             onChange={setEditorState} 
-        />
+        /> */}
         {/* <div contentEditable={true}>Hello <b>poo this is the grates</b> goodness</div> */}
     </div>)
 }

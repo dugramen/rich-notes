@@ -8,8 +8,8 @@ export default function NoteItem(props) {
         props.deleteNote()
     }
 
-    return (<div className={`note-item ${isSelected? "selected": ""}`} onClick={selectNote}>
+    return (<div className={`note-item ${isSelected? "selected": ""}`} onClick={() => selectNote()}>
         <h4>{title}</h4>
-        <button onClick={deleteNote}>Del</button>
+        <button className="not-item--button" onClick={deleteNote}>Delete</button>
     </div>)
 }

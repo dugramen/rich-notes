@@ -3,25 +3,23 @@ import NoteItem from "./NoteItem";
 import "./Note.css";
 
 export default function NoteList(props) {
-    const [notes, setNotes] = React.useState(["First Note"])
-    const [selectedNote, setSelectedNode] = React.useState(0)
-
+    const {notes, setNotes, currentNote, setCurrentNote} = props
     const noteDivs = notes.map((note, index) => <NoteItem 
         key = {index}
-        title = {note}
-        isSelected = {selectedNote === index}
+        title = {note.split("\n")[0]}
+        isSelected = {currentNote === index}
         selectNote = {() => selectNote(index)}
         deleteNote = {() => deleteNote(index)}
     />)
 
     function addNote() {
-        setNotes(oldNotes => [...oldNotes, "New Note " + oldNotes.length])
+        setNotes(oldNotes => ["New Note " + oldNotes.length, ...oldNotes])
     }
     function deleteNote(index) {
         setNotes(oldNotes => oldNotes.filter((n, _index) => _index !== index))
     }
     function selectNote(index) {
-        setSelectedNode(index)
+        setCurrentNote(index)
     }
 
     return (<div className='note-panel'>
