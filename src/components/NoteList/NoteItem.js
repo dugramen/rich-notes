@@ -29,7 +29,7 @@ export default function NoteItem(props) {
         <div className="note-bg"/>
         <div className="note-highlight"/>
         <h4 className="note-title">{title}</h4>
-        <button className="not-item--button" onClick={deleteNote}>Delete</button>
+        <button className="not-item--button delete" onClick={deleteNote}>Delete</button>
     </div>
     )
 }

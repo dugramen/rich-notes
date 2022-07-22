@@ -4,9 +4,15 @@
 
 #root {
   height: 100%;
+  padding: 8px;
+  --radius: 20px;
+  --dark-color: rgb(234, 116, 116);
+  --light-color: rgb(255, 160, 160);
 }
 
 html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 

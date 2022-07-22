@@ -8,15 +8,18 @@
 }
 
 .divide:hover {
-    background-color: gray;
+    background-color: var(--light-color);
 }
 
 .line {
     height: 20%;
+    height: 0%;
     width: 2px;
-    background-color: transparent;
+    background-color: var(--dark-color);
+    transition: .3s;
 }
 
 .divider:hover .line {
-    background-color: gray;
+    /* background-color: var(--light-color); */
+    height: 20%;
 }

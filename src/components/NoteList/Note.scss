@@ -1,0 +1,163 @@
+$radius: 20px;
+$darkColor: rgb(234, 116, 116);
+$lightColor: rgb(255, 160, 160);
+
+@mixin absoluteFullSize {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+@mixin border($width: 4px, $color: $lightColor) {
+    border: {
+        width: $width;
+        style: solid;
+        radius: $radius;
+        color: $color;
+    }
+}
+@mixin transition {
+    transition: .3s;
+}
+@mixin flex($direction: row, $align: center, $justify: flex-start) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+}
+@mixin pointer {
+    cursor: grab;
+}
+@mixin transition {
+    transition: .3s;
+}
+
+.note-list {
+    @include flex(row, stretch);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 100%;
+}
+
+.note-item {
+    @include flex(row, stretch, space-between);
+    @include border(0px);
+    @include pointer();
+    @include transition();
+    max-height: 100px;
+    margin: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+
+    &.selected {
+        border-radius: $radius;
+        &:hover {
+            border-radius: 0px $radius $radius 0px;
+            // background-color: green;
+        }
+        .note-bg {
+            transform: translateX(0px);
+        }
+        > .note-title {
+            color: white;
+        }
+    }
+
+    &:hover {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        > .note-title {
+            padding-left: 20px;
+        }
+        .delete {
+            transform: translateX(0px);
+            margin-left: 0%;
+            // color: white;
+        }
+    }
+
+    > * {
+        padding: 0px 12px;
+    }
+
+    // Expand animation when clicked
+    .note-bg {
+        @include absoluteFullSize();
+        @include border(0px);
+        @include transition();
+        background-color: $darkColor;
+        border-radius: 0px $radius $radius 0px;
+        z-index: -1;
+        transform: translateX(-101%);
+        // .note-item.selected & {
+        //     transform: translateX(0px);
+        // }
+    }
+
+    // Hover indicator on left side
+    .note-highlight {
+        @include absoluteFullSize();
+        @include border(0px);
+        @include transition();
+        border-radius: 0px;
+        &:hover {
+            border-left-width: 8px;
+        }
+    }
+
+    .note-title {
+        @include transition();
+        flex-grow: 0;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: clip;
+        white-space: nowrap;
+        text-align: left;
+        color: black;
+    }
+
+    .delete {
+        @include transition();
+        @include border(0px);
+        cursor: pointer;
+        flex-grow: 0;
+        flex-shrink: 0;
+        background-color: $lightColor;
+        color: white;
+        transform: translateX(102%);
+        margin-left: -100%;
+        &:hover {
+            padding: 20px;
+        }
+    }
+
+    &.deleted {
+        max-height: 0px;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.add-note {
+    @include transition();
+    cursor: pointer;
+    border: {
+        radius: 40px;
+        width: 4px;
+        color: transparent;
+        style: solid;
+    }
+    color: $darkColor;
+    font-weight: bold;
+    padding: 16px;
+    background-color: transparent;
+}
+
+.add-note:hover {
+    border-radius: 20px;
+    background-color: $darkColor;
+    padding: 20px;
+    color: white;
+}
