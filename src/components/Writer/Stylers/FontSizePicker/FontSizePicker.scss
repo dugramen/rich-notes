@@ -1,0 +1,29 @@
+
+@import "./../../../main.scss";
+
+// .font-option {
+//     cursor: pointer;
+//     &:hover {
+//         border-radius: $radius;
+//         background-color: $darkColor;
+//     }
+// }
+
+.font-size-picker {
+    .font-list {
+        display: flex;
+        flex-direction: column;
+        background-color: rebeccapurple;
+    }
+
+    
+
+    input {
+        background: none;
+        border: none;
+    }
+
+    textarea:focus, input:focus {
+        outline: none;
+    }
+}

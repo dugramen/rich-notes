@@ -4,10 +4,15 @@
 
 #root {
   height: 100%;
-  padding: 8px;
+  /* padding: 8px; */
   --radius: 20px;
   --dark-color: rgb(234, 116, 116);
   --light-color: rgb(255, 160, 160);
+}
+
+body {
+  
+  background-color: hsl(0, 0%, 90%);
 }
 
 html, body {
@@ -25,4 +30,69 @@ html, body {
   display: flex;
   flex-direction: row;
   align-items: stretch;
+}
+
+.mobile-app {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  /* height: 100%; */
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  /* display:inline-block; */
+}
+
+.header > button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: none;
+  border: none;
+  /* border-radius: 0px 0px 12px 0px; */
+  /* margin-top: 4px; */
+  padding: 16px 16px;
+  color: var(--dark-color);
+  transition: .3s;
+}
+.header > button:hover {
+  padding: 16px 20px;
+  /* border-radius: 12px; */
+  background-color: var(--dark-color);
+  color: white;
+}
+
+.mobile-app > .bg {
+  background-color: transparent;
+  transition: .3s;
+}
+.mobile-app > .bg.visible {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: hsla(0, 0%, 0%, 0.5);
+}
+
+.notes-panel-mobile {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 25%;
+  transform: translateX(-100%);
+  transition: .3s;
+  background-color: hsla(0, 0%, 90%, 1);
+  margin: 0;
+  padding-top: 20px;
+}
+
+.notes-panel-mobile.visible {
+  transform: translateX(0px);
 }

@@ -1,0 +1,12 @@
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    .box {
+        &.checked {
+
+        }
+        &.unchecked {
+
+        }
+    }
+}

@@ -1,14 +1,30 @@
+/* .writer {
+
+    background-color: hsl(0, 0%, 90%);
+} */
+
 div.DraftEditor-root {
     padding: 14px;
     resize: both;
     overflow: auto;
-    background-color: hsl(0, 0%, 90%);
+    background-color: hsl(0, 0%, 95%);
     border-radius: var(--radius);
+    width: 90%;
     max-width: 100%;
+    height: 500px;
+    text-align: start;
 }
 div.DraftEditor-root:focus {
     border-radius: 4px;
 }
+/* div.DraftEditor-root::selection,
+div.DraftEditor-editorContainer::selection,
+div.public-DraftEditor-content::selection,
+.draftjs::selection,
+.writer::selection
+{
+    background-color: var(--dark-color);
+} */
 
 div.DraftEditor-editorContainer,
 div.public-DraftEditor-content {
@@ -18,14 +34,14 @@ div.public-DraftEditor-content {
 .writer {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
 }
 
 .draftjs {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    /* width: 100%;
+    height: 100%; */
+    /* max-width: 100%;
+    max-height: 100%; */
     padding: 4px 12px;
     display: flex;
     flex-direction: column;
@@ -91,4 +107,14 @@ div.public-DraftEditor-content {
 }
 .TextBlock {
     text-align: justify;
+}
+.Indent {
+    text-indent: 20px;
+}
+.Dedent {
+    text-indent: 0px;
+}
+
+.check-box::before {
+    content: "box";
 }

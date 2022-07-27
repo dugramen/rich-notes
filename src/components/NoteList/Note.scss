@@ -1,6 +1,5 @@
-$radius: 20px;
-$darkColor: rgb(234, 116, 116);
-$lightColor: rgb(255, 160, 160);
+@import "./../main.scss";
+
 
 @mixin absoluteFullSize {
     position: absolute;

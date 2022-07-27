@@ -1,65 +1,88 @@
-import React from "react";
+import React, { Component } from "react";
 import './Writer.css';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from "draft-js";
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding, convertFromHTML, Draft, DefaultDraftBlockRenderMap } from "draft-js";
 import { SketchPicker } from "react-color";
-import ColorPickerButton from "./ColorPickerButton/ColorPickerButton";
+import ColorPickerButton from "./Stylers/ColorPickerButton";
+import FontSizePicker from "./Stylers/FontSizePicker/FontSizePicker";
+import CheckBox from "./Stylers/CheckBox/CheckBox";
+import Immutable from 'immutable';
 
 export default function Writer(props) {
-    const [styleMap, setStyleMap] = React.useState({})
-    function addColorStyle(name, property, hex) {
-        setStyleMap(old => ({
-            ...old,
-            [name + hex]: {
-                [property]: hex
-            },
-        }))
-        toggleInline(name + hex)
-        console.log(name + hex)
+    const blockRenderMap = Immutable.Map({
+        'unchecked': {
+            element: 'li',
+            // wrapper: <CheckBox checked={false}/>,
+        },
+        'checked': {
+            element: 'ul',
+            // wrapper: <CheckBox checked={true}/>,
+        },
+    })
+
+
+
+
+    function addColorStyle(property, col) {
+        const rgba = `rgba(${col.r}, ${col.g}, ${col.b}, ${col.a})`
+        toggleInline(property + ":" + rgba)
     }
     const tools = [
-        ['-ParagraphStyle', 'Font', 'FontSize'],
+        ['-checked', '-unchecked'],
+        [
+            <FontSizePicker onChange={(val) => toggleInline(`fontSize:${val}px`)}/>,
+            // '-ParagraphStyle', 
+            'Font', 
+        ],
         ['ITALIC', 'BOLD', 'UNDERLINE', 'STRIKETHROUGH'],
         [
             <ColorPickerButton 
-                onChangeComplete={color => addColorStyle('TextColor', 'color', color.hex)}
+                onChangeComplete={color => addColorStyle('color', color.rgb)}
             >
                 TextColor
             </ColorPickerButton>,
             <ColorPickerButton 
-                onChangeComplete={color => addColorStyle('HighlightColor', 'backgroundColor', color.hex)}
+                onChangeComplete={color => addColorStyle('backgroundColor', color.rgb)}
             >
                 HighlightColor
             </ColorPickerButton>
         ],
-        ['UnorderedList', 'OrderedList'],
+        [
+            <button onClick={() => toggleBlock('unordered-list-item')}>List</button>, 
+            '-ordered-list-item',
+            '-check-box',
+        ],
         ['-TextLeft', '-TextCenter', '-TextRight', '-TextBlock'],
         ['-Indent', '-Dedent']
-    ]
-    const toolButtons = tools.map(section => section.map(tool => (typeof tool === "string"?
-    <button 
-        key = {tool} 
-        id = {tool.toLowerCase()}
-        onMouseDown={e => e.preventDefault()}
-        onClick={(event) => handleClick(event, tool)}
-        >
-        {tool}
-    </button>
-    :
-    tool)))
+    ];
+
+    const toolButtons = tools.map(section => section.map(Tool => {
+        if (typeof Tool === "string") {
+            return <button 
+                key = {Tool} 
+                id = {Tool.toLowerCase()}
+                onMouseDown={e => e.preventDefault()}
+                onClick={(event) => handleClick(event, Tool)}
+                >
+                {Tool}
+            </button>
+        } else {
+            return <div 
+                // onMouseDown={e => e.preventDefault()}
+                >
+                {Tool}
+            </div>
+        }
+    }))
 
     const toggleBlock = (tool) => {props.updateDraft(RichUtils.toggleBlockType(props.editorState, tool))}
     const toggleInline = (tool) => {props.updateDraft(RichUtils.toggleInlineStyle(props.editorState, tool))}
     function handleClick(event, tool) {
-        let nextState
         if (tool.startsWith('-')) {
             tool = tool.slice(1)
             toggleBlock(tool)
-            // nextState = RichUtils.toggleBlockType(props.editorState, tool)
         } else {
             toggleInline(tool)
-            // nextState = RichUtils.toggleInlineStyle(props.editorState, tool.toUpperCase());
         }
-        // props.updateDraft(nextState)
     }
 
     return (<div className="writer">
@@ -79,11 +102,32 @@ export default function Writer(props) {
                 className="editor"
                 editorState={props.editorState}
                 onChange={props.updateDraft}
-                customStyleMap={styleMap}
-                keyBindingFn={getDefaultKeyBinding}
-                handleKeyCommand={() => "not-handled"}
-                blockStyleFn={c => {
-                    return c.getType()
+                textAlignment={'left'}
+                // blockRenderMap={blockRenderMap}
+                blockRendererFn={c => {
+                    if (c.getType() === "checked") {
+                        return {
+                            component: CheckBox,
+                            props: {
+                                children: c,
+                                editorState: props.editorState,
+                            },
+                          };
+                    }
+                    // return c.getType()
+                }}
+                customStyleFn={style => {
+                    const styleNames = style.toJS()
+                    return styleNames.reduce((styles, styleName) => {
+                        if (styleName.includes(':')) {
+                            const splits = styleName.split(':')
+                            return {...styles,
+                                [splits[0]]: splits[1]
+                            }
+                        } else {
+                            return styles
+                        }
+                    }, {})
                 }}
             />
             :
