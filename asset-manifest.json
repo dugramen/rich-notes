@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/rich-notes/static/css/main.ad6f6e59.css",
+    "main.js": "/rich-notes/static/js/main.b1a73851.js",
+    "static/js/787.1a0b0ae6.chunk.js": "/rich-notes/static/js/787.1a0b0ae6.chunk.js",
+    "index.html": "/rich-notes/index.html",
+    "main.ad6f6e59.css.map": "/rich-notes/static/css/main.ad6f6e59.css.map",
+    "main.b1a73851.js.map": "/rich-notes/static/js/main.b1a73851.js.map",
+    "787.1a0b0ae6.chunk.js.map": "/rich-notes/static/js/787.1a0b0ae6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ad6f6e59.css",
+    "static/js/main.b1a73851.js"
+  ]
+}
