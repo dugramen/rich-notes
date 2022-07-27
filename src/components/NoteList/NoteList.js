@@ -39,6 +39,7 @@ export default function NoteList(props) {
         }}
     > 
         <div className='note-panel'>
+            
             <button className='add-note' onClick={() => addDraft()}>Add Note</button>
             <Droppable droppableId='droppable'>
                 {provided => (
