@@ -17,9 +17,7 @@ export default function Writer(props) {
             element: 'ul',
             // wrapper: <CheckBox checked={true}/>,
         },
-    })
-
-
+    })  
 
 
     function addColorStyle(property, col) {
@@ -111,11 +109,13 @@ export default function Writer(props) {
                             props: {
                                 children: c,
                                 editorState: props.editorState,
+                                onClick: () => {},
                             },
                           };
                     }
                     // return c.getType()
                 }}
+                blockStyleFn={block => block.getType()}
                 customStyleFn={style => {
                     const styleNames = style.toJS()
                     return styleNames.reduce((styles, styleName) => {

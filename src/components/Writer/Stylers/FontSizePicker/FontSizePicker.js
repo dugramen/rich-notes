@@ -5,7 +5,7 @@ import "./FontSizePicker.scss";
 export default function FontSizePicker(props) {
     const [value, setValue] = React.useState(12)
     const [visible, setVisible] = React.useState(false)
-
+    
     return (
     <ModalButton 
         button="Font Size" 
@@ -29,35 +29,6 @@ export default function FontSizePicker(props) {
                 >{n} px</button>
             ))}
         </div>
-        {/* <div
-            className="font-size-picker"
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: "center",
-                justifyContent: 'flex-start',
-                gap: "8px",
-            }}
-        >
-            <p>Font Size</p>
-            <input
-                type={'number'}
-                value={value}
-                min={0}
-                onChange={(event) => {
-                    setValue(event.target.value)
-                    props.onChange && props.onChange(event.target.value)
-                }}
-                style={{
-                    borderRadius: "8px",
-                    borderWidth: "0px",
-                    flex: "0",
-                    flexGrow: 0,
-                    backgroundClip: "hsla(0, 0%, 0%, .95)",
-                    maxWidth: "50px"
-                }}
-            />
-        </div> */}
     </ModalButton>
     )
 }
