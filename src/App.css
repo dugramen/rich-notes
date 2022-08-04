@@ -90,7 +90,11 @@ html, body {
   transition: .3s;
   background-color: hsla(0, 0%, 90%, 1);
   margin: 0;
-  padding-top: 20px;
+  /* padding-top: 20px; */
+}
+
+.notes-panel-mobile .add-note {
+  margin: 8px;
 }
 
 .notes-panel-mobile.visible {

@@ -1,6 +1,9 @@
 import React from 'react';
 import NoteItem from "./NoteItem";
 import "./Note.scss";
+import sorters from './sorters';
+import DropDown from '../Utils/DropDown';
+
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 export default function NoteList(props) {
@@ -39,20 +42,33 @@ export default function NoteList(props) {
         }}
     > 
         <div className='note-panel'>
-            
+
             <button className='add-note' onClick={() => addDraft()}>Add Note</button>
-            <Droppable droppableId='droppable'>
-                {provided => (
-                    <div 
-                        className='note-list'
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                    >
-                        {draftElements}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
+            <div className='note-list-container'>
+                <Droppable droppableId='droppable'>
+                    {provided => (
+                        <div 
+                            className='note-list'
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            {draftElements}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>     
+            </div>      
+            <div className='sorting-button'>     
+                <DropDown
+                    items={Object.keys(sorters)}
+                    onChange={(item) => {
+                        props.setDrafts(oldDrafts => {
+                        return [...oldDrafts].sort(sorters[item])
+                        })
+                        setCurrentDraft(old => old)
+                    }}
+                />
+            </div>
         </div>
     </DragDropContext>
     )

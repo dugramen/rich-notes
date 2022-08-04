@@ -39,6 +39,42 @@
     min-width: 100%;
 }
 
+.note-panel {
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .sorting-button {
+        margin-top: auto;
+        align-self: center;
+        margin-bottom: 4px;
+        padding: 8px 12px;
+
+        select {
+            cursor: pointer;
+            background-color: $darkColor;
+            color: white;
+            outline: none;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            transition: .3s;
+
+            &:hover {
+               padding: 8px 16px; 
+               border-radius: 0px;
+            }
+        }
+    }
+}
+
+.note-list-container {
+    // flex-grow: 0;
+    overflow-y: auto;
+    max-height: max-content;
+}
+
 .note-item {
     @include flex(row, stretch, space-between);
     @include border(0px);

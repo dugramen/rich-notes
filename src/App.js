@@ -46,47 +46,6 @@ function App() {
 
   // Sorting functions
   const getBlockText = (b) => b.editor.getCurrentContent().getFirstBlock().getText()
-  const sorters = {
-    "(A-Z)": (a, b) => {
-        const ta = getBlockText(a);
-        const tb = getBlockText(b);
-        if (ta > tb) return 1;
-        else if (ta < tb) return -1;
-        else return 0;
-    },
-    "(Z-A)": (a, b) => {
-        const ta = getBlockText(a);
-        const tb = getBlockText(b);
-        if (ta > tb) return -1;
-        else if (ta < tb) return 1;
-        else return 0;
-    },
-    "Newest First": (a, b) => {
-      if (a.id < b.id) return 1;
-      else if (a.id > b.id) return -1;
-      else return 0;
-    },
-    "Oldest First": (a, b) => {
-      if (a.id < b.id) return 1;
-      else if (a.id > b.id) return -1;
-      else return 0;
-    },
-    "Smallest First": (a, b) => {
-      const ta = a.editor.getCurrentContent().getPlainText()
-      const tb = b.editor.getCurrentContent().getPlainText()
-      if (ta.length > tb.length) return 1;
-      else if (tb.length > ta.length) return -1;
-      else return 0;
-    },
-    "Largest First": (a, b) => {
-      const ta = a.editor.getCurrentContent().getPlainText()
-      const tb = b.editor.getCurrentContent().getPlainText()
-      if (ta.length > tb.length) return -1;
-      else if (tb.length > ta.length) return 1;
-      else return 0;
-    },
-    // Add most recent edit
-}
 
   function createDraft(time = Date.now()) {
     return {
@@ -100,11 +59,9 @@ function App() {
   function addDraft() {
     const newDraft = createDraft()
     setDrafts(oldDrafts => [...oldDrafts, newDraft])
-    // setCurrentDraft(newDraft.id)
   }
   function removeDraft(id) {
     if (id === currentDraft && drafts.length > 1) {
-      // console.log((drafts.findIndex(draft => draft.id === id) + drafts.length - 1) % (drafts.length))
       setCurrentDraft(drafts[(drafts.findIndex(draft => draft.id === id) + 1) % (drafts.length)].id)
     }
     setDrafts(oldDrafts => oldDrafts.filter((draft) => draft.id !== id))
@@ -125,13 +82,13 @@ function App() {
   }
 
   const noteList = <NoteList 
-    // notes={drafts.map(draft => draft.editor.getCurrentContent().getPlainText('\u0001'))}
     drafts={drafts}
     currentDraft={currentDraft}
     setCurrentDraft={setCurrentDraft}
     addDraft={addDraft}
     removeDraft={removeDraft}
     moveDraft={moveDraft}
+    setDrafts={setDrafts}
   />
   const writer = <Writer 
     addDraft={addDraft}
@@ -140,49 +97,37 @@ function App() {
   />
 
   return (
-    // <TextContext.Provider value={TextContext}>
-      <div className="App">
-        <Header/>
-        {isMobile ? 
-          <div className='mobile-app'>
-            <div className='header'>
-              <button
-                className='open-notes-list'
-                onClick={() => setNotesVisible(old => !old)}
-              >Notes List</button>
-              <h2>Rich Notes</h2>
-            </div>
-
-            <div
-              className={`bg ${notesVisible && "visible"}`}
-              onClick={() => setNotesVisible(false)}
-            />
-            <div
-              className={`notes-panel${isMobile && "-mobile"} ${notesVisible && "visible"}`}
-            >
-              <DropDown
-                items={Object.keys(sorters)}
-                onChange={(item) => {
-                  console.log(sorters[item])
-                  setDrafts(oldDrafts => {
-                    return [...oldDrafts].sort(sorters[item])
-                  })
-                  setCurrentDraft(old => old)
-                }}
-              />
-              {noteList}
-            </div>
-
-            {writer}  
+    <div className="App">
+      <Header/>
+      {isMobile ? 
+        <div className='mobile-app'>
+          <div className='header'>
+            <button
+              className='open-notes-list'
+              onClick={() => setNotesVisible(old => !old)}
+            >Notes List</button>
+            <h2>Rich Notes</h2>
           </div>
-        :
-        <SplitPanel className='App-body'>
-          {noteList}
-          {writer}
-        </SplitPanel>
-        }
-      </div>
-    // </TextContext.Provider>
+
+          <div
+            className={`bg ${notesVisible && "visible"}`}
+            onClick={() => setNotesVisible(false)}
+          />
+          <div
+            className={`notes-panel${isMobile && "-mobile"} ${notesVisible && "visible"}`}
+          >
+            {noteList}
+          </div>
+
+          {writer}  
+        </div>
+      :
+      <SplitPanel className='App-body'>
+        {noteList}
+        {writer}
+      </SplitPanel>
+      }
+    </div>
   );
 }
 

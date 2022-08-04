@@ -86,12 +86,12 @@ export default function Writer(props) {
     return (<div className="writer">
         <div className="tool-container">
             {toolButtons}
-            <button
+            {/* <button
                 onClick={() => {
                     const nextState = RichUtils.toggleBlockType(props.editorState, "TextLeft")
                     props.updateDraft(nextState)
                 }}
-            >blok</button>
+            >blok</button> */}
         </div>
         <div className="draftjs">
             {
