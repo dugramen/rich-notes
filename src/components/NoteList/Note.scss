@@ -187,12 +187,14 @@
     color: $darkColor;
     font-weight: bold;
     padding: 16px;
+    margin: 8px;
     background-color: transparent;
+
+    &:hover {
+        border-radius: 20px;
+        background-color: $darkColor;
+        padding: 20px;
+        color: white;
+    }
 }
 
-.add-note:hover {
-    border-radius: 20px;
-    background-color: $darkColor;
-    padding: 20px;
-    color: white;
-}
